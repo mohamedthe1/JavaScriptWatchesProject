@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Product For Admin</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous"
+    />
+  </head>
+  <body style="background-color: rgb(240, 235, 235)">
+    <div class="container mt-5">
+      <div class="row">
+        <div id="theimg" class="col-12 col-md-5"></div>
+        <div id="details" class="col-12 col-md-7" style="margin-top: 80px;margin-left:0px;">
+          <h1 id="namee"></h1>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non doloribus voluptas necessitatibus quasi illum consectetur odio repellat sequi natus, architecto explicabo doloremque quibusdam ea obcaecati velit debitis eum iure commodi.</p>
+          <h3 id="prrice"></h3>
+          <span id="btnn1" class="d-inline-block me-3" ></span>
+          <span id="btnn2"></span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var x = localStorage.getItem("myid");
+      var return_product = JSON.parse(localStorage.getItem("products"));
+      var product_arr = return_product.filter((item) => item["prod_id"] == x);
+      var maindiv = document.createElement("div");
+      maindiv.classList.add("maindiv1");
+      var img = document.createElement("img");
+      img.setAttribute("src", `${product_arr[0]["image"]}`);
+      img.classList.add("img2");
+      theimg.append(img);
+      var div1 = document.createElement("div");
+      div1.classList.add("name2");
+      div1.append(product_arr[0]["prod_name"]);
+      namee.append(div1);
+      var div2 = document.createElement("div");
+      div2.classList.add("price2");
+      div2.append(product_arr[0]["price"], " $");
+      prrice.append(div2);
+// ============================
+      var but = document.createElement("button");
+      but.textContent = "delete the product";
+      but.setAttribute("class", "btn btn-outline-danger btn-block gx-5");
+      but.setAttribute("onclick", `deleteprod(${product_arr[0]["prod_id"]})`);
+      btnn1.append(but);
+      var but1 = document.createElement("button");
+      but1.textContent = "update the product";
+      but1.setAttribute("class", "btn btn-outline-info btn-block my-2");
+      but1.setAttribute("onclick", `updateprod(${product_arr[0]["prod_id"]})`);
+      btnn2.append(but1);
+      // =============================================
+
+      document.body.append(maindiv);
+      if (localStorage.mycart != null) {
+        myArr = JSON.parse(localStorage.mycart);
+      } else {
+        myArr = [];
+      }
+
+      function deleteprod(x) {
+        var return_product = JSON.parse(localStorage.getItem("products"));
+        for (let index = 0; index < return_product.length; index++) {
+          const element = return_product[index];
+          if (element["prod_id"] == x) {
+            console.log(return_product[index]);
+            return_product.splice(index, 1);
+            break;
+          }
+        }
+        localStorage.setItem("products", JSON.stringify(return_product));
+
+        for (let index = 0; index < return_product.length; index++) {
+          const element = return_product[index];
+          if (element["prod_id"] == x) {
+            return_product.splice(index, 1);
+            break;
+          }
+        }
+        alert("Product is Deleted");
+        console.log(return_product);
+        localStorage.setItem("products", JSON.stringify(return_product));
+        window.open("admin.html");
+      }
+      function updateprod(x) {
+        window.open(`update_prod.html?id=${x}`);
+      }
+    </script>
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"
+  ></script>
+  </body>
+</html>

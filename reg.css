@@ -1,0 +1,16 @@
+body{
+    background-color: rgba(190, 190, 190, 0.548);
+    background-image: url(wp1853720.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+
+
+footer{
+    color: white;
+    height: 160px;
+    text-align: center;
+    font-size: 30px;
+}
